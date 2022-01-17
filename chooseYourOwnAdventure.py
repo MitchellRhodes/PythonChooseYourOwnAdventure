@@ -4,6 +4,7 @@ from Player import Player
 def main():
     User.location = "start"
     items = ["lighter", "knife", "key"]
+    #why does it remain closed
     window = "closed"
 
     print("You open your eyes. Your surroundings are blurry.")
@@ -34,6 +35,12 @@ def main():
             User.action_count += 1
 
 
+# def door_area():
+#really dark use lighter, good eyesight needed to see wire that goes to outside door, knife cuts wire, key opens door. No knife you explode when you open the door
+
+
+
+
 def window_area(window):
 
     if window == "closed":
@@ -54,6 +61,7 @@ def window_area(window):
             knife_decision = input("Would you like to open the window with your knife? (yes/no)")
 
             if knife_decision.lower().strip() == "yes":
+
                 print("You wedge the blade in and pop open the window. The knife has broken in two. What a shame.")
                 User.action_count += 1
                 window = "open"
@@ -61,15 +69,17 @@ def window_area(window):
 
                 print("You peer outside and see the thickest fog you have ever seen. As thick as pea soup does not do it justice. You feel even worse for having broken your knife.")
             else:
+
                 print("You decide against it.")
 
     else:
-        print("A slight breeze is blowing in through the window. It looks very foggy out. No point in trying to see anything.")
+        print("A slight breeze is blowing in through the window... It taunts you. It's so foggy there is no point in trying to see anything.")
 
 
 
     print("After looking out the window you decided to head back into the room")
     User.location = "start"
+
 
 
 def mirror_area(items):
