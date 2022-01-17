@@ -4,6 +4,7 @@ from Player import Player
 def main():
     User.location = "start"
     items = ["lighter", "knife", "key"]
+    window = "closed"
 
     print("You open your eyes. Your surroundings are blurry.")
     
@@ -26,11 +27,49 @@ def main():
 
             print("You walk over to the window")
             User.action_count += 1
+            window_area(window)
         elif User.location == "door":
 
             print("You walk towards the door.")
             User.action_count += 1
 
+
+def window_area(window):
+
+    if window == "closed":
+        knife_decision = "no"
+
+        print("You peer out the window. Your eyes straining to see out of the cloudy glass.")
+        print("You look at the latch and see it is broken. Maybe you can pry it open.")
+
+        pry_open = input("Would you like to try to pry it open? (yes/no)")
+
+
+        if pry_open.lower().strip() == "yes" and not "knife" in User.inventory:
+
+            print("You try to open it with your hands to no avail.")
+            User.action_count += 1
+
+        if pry_open.lower().strip() == "yes" and "knife" in User.inventory:
+            knife_decision = input("Would you like to open the window with your knife? (yes/no)")
+
+            if knife_decision.lower().strip() == "yes":
+                print("You wedge the blade in and pop open the window. The knife has broken in two. What a shame.")
+                User.action_count += 1
+                window = "open"
+                User.inventory.remove("knife")
+
+                print("You peer outside and see the thickest fog you have ever seen. As thick as pea soup does not do it justice. You feel even worse for having broken your knife.")
+            else:
+                print("You decide against it.")
+
+    else:
+        print("A slight breeze is blowing in through the window. It looks very foggy out. No point in trying to see anything.")
+
+
+
+    print("After looking out the window you decided to head back into the room")
+    User.location = "start"
 
 
 def mirror_area(items):
