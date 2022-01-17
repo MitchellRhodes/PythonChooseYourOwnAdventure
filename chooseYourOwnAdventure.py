@@ -1,11 +1,11 @@
 from Player import Player
+from Enviornment import Enviornment
 
 
 def main():
     User.location = "start"
     items = ["lighter", "knife", "key"]
-    #why does it remain closed
-    window = "closed"
+
 
     print("You open your eyes. Your surroundings are blurry.")
     
@@ -28,22 +28,50 @@ def main():
 
             print("You walk over to the window")
             User.action_count += 1
-            window_area(window)
+            window_area()
         elif User.location == "door":
 
             print("You walk towards the door.")
             User.action_count += 1
+            door_area()
 
 
-# def door_area():
+def door_area():
+
+
+    if Area.light == "off":
+
+        print("You're now standing in front of the door. It is suspiciously dark over here.")
+        lighter_on()
+
+    else:
+        print("I can see the door properly now.")
+    
+    User.location = "start"
 #really dark use lighter, good eyesight needed to see wire that goes to outside door, knife cuts wire, key opens door. No knife you explode when you open the door
 
+def lighter_on():
+
+    if "lighter" in User.inventory:
+        
+        lighter_on = input("Would you like to light it? (yes/no)")
+
+        if lighter_on.lower().strip() == "yes":
+
+            print("There, that's much better.")
+            Area.light == "on"
+        else:
+
+            print("Maybe later.")
+
+    else:
+        
+        print("I guess I can open it in the dark, it's just a door.")
 
 
+def window_area():
 
-def window_area(window):
-
-    if window == "closed":
+    if Area.window == "closed":
         knife_decision = "no"
 
         print("You peer out the window. Your eyes straining to see out of the cloudy glass.")
@@ -64,7 +92,7 @@ def window_area(window):
 
                 print("You wedge the blade in and pop open the window. The knife has broken in two. What a shame.")
                 User.action_count += 1
-                window = "open"
+                Area.window = "open"
                 User.inventory.remove("knife")
 
                 print("You peer outside and see the thickest fog you have ever seen. As thick as pea soup does not do it justice. You feel even worse for having broken your knife.")
@@ -179,6 +207,7 @@ if play_game.lower().strip() == "yes":
 
     name = input("What is your first name?")
     User = Player(name, None, 0, True, [], "Start")
+    Area = Enviornment("closed", "off", "intact")
 
     main()
              
