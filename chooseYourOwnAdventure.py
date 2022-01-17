@@ -270,7 +270,7 @@ play_game = input("Would you like to play? (yes/no)")
 if play_game.lower().strip() == "yes":
 
     name = input("What is your first name?")
-    User = Player(name, None, 0, True, [], "Start")
+    User = Player(name, None, 0, [], "Start")
     Area = Enviornment("closed", "dark", "intact", "closed")
 
     main()
