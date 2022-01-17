@@ -6,7 +6,23 @@ play_game = input("Would you like to play? (yes/no)")
 
 if play_game.lower().strip() == "yes":
 
-    print("play game")
+    eyesight = None
+    action_count = 0
+
+    print("You open your eyes. Your surroundings are blurry.")
+    
+    while eyesight == None:
+        eye_decision = input("Will you blink furiously or rub your eyes? (blink/rub)")
+        if eye_decision.lower().strip() == "blink":
+            print("It did little to improve your eyesight...")
+            eyesight = 0
+            action_count += 1
+        elif eye_decision.lower().strip() == "rub":
+            print("Your eyesight has improved remarkably!")
+            eyesight = 1
+            action_count += 1
+        else:
+            print("Could you repeat that?")
              
 
 else:
