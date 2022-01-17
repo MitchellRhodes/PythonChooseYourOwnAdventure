@@ -9,22 +9,58 @@ def main():
     eye_decision()
 
     print("You stand up and survey the room.")
-    starting_area()
+
+#error where if you go back this if statement won't happen again
+    while User.location == "start" or User.location == "mirror" or User.location == "window" or User.location == "door":
+        if User.location == "start":
+
+            starting_area()
+        elif User.location == "mirror":
+
+            print("You walk up to the mirror")
+            mirror_area()
+        elif User.location == "window":
+
+            print("You walk over to the window")
+        elif User.location == "door":
+
+            print("You walk towards the door.")
 
 
-    if User.location == "start":
+def mirror_area():
+    
+    items = ["lighter", "knife", "key"]
+    pickup_more = "yes"
 
-        starting_area()
-    elif User.location == "mirror":
+    print("You look into the mirror and see your bloodshot eyes staring back at you. You don't make a pretty picture.")
+    print("Looking below the mirror you see an odd assortment of items.")
 
-        print("You walk up to the mirror")
-    elif User.location == "window":
+    while pickup_more == "yes":
+        print("Which do you pickup?")
+        pickup = input(items[0:])
 
-        print("You walk over to the window")
-    elif User.location == "door":
+
+        if pickup.lower().strip() == "lighter":
+
+            print("You check to make sure it has fuel and then pocket the lighter.")
+            User.inventory.append("lighter")
+            items.remove("lighter")
+        elif pickup.lower().strip() == "knife":
+
+            print("You have picked up the knife. Watch out for those pointy bits!")
+            User.inventory.append("knife")
+            items.remove("knife")
+        elif pickup.lower().strip() == "key":
         
-        print("You walk towards the door.")
+            print("You think it's for the door. It probably is, so you decide it is best to bring it.")
+            User.inventory.append("key")
+            items.remove("key")
 
+        pickup_more = input("Do you want to keep picking up items? (yes/no)").lower().strip()
+
+    print("You finish picking up items and head back out into the room.")
+    User.location = "start"
+    
 
 
 
