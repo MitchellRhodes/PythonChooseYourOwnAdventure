@@ -43,7 +43,6 @@ def door_area():
         print("You're now standing in front of the door. It is suspiciously dark over here.")
         lighter_on()
         User.action_count += 1
-        print("area light after lighter on " + Area.light)
     else:
         print("The door is well lit now.")
 
@@ -72,22 +71,31 @@ def door_area():
             User.action_count += 1
         else:
             print("I'll go back into the room till I am ready.")
+            User.location = "start"
 
-    
-    User.location = "start"
-#really dark use lighter, good eyesight needed to see wire that goes to outside door, knife cuts wire, key opens door. No knife you explode when you open the door
+
 
 def open_door():
 
-    print("area light in open_door" + Area.light)
-
+    print(Area.light, Area.wire)
     if Area.light == "lit" and Area.wire == "cut":
         
         print("The door opens with a creak.")
+        print("You step through")
+        print("You lived!")
+        print(User.name + " survived and took " + str(User.action_count) + " actions to make it!")
+        User.location = "end"
     
     else: 
 
         print("The door creaks ominously as it opens.")
+        print("You step through")
+        print("You see a flash of light for what feels like an eternity before you hear the boom.")
+        print("You fall to the ground involuntarily and roll away till the wall halts your progress.")
+        print("Is that my body?")
+        print("Your last thought before your eyes go dim.")
+        print(User.name + " died and took " + str(User.action_count) + " actions to fail...")   
+        User.location = "end"
 
     
 
@@ -100,7 +108,7 @@ def wire_cut():
         if knife_cut.lower().strip() == "yes":
 
             print("I cut the wire and hear a small click on the other side. Good or bad, there's no going back.")
-            Area.wire == "cut"
+            Area.wire = "cut"
             User.action_count += 1
         else:
 
@@ -117,8 +125,6 @@ def lighter_on():
 
             print("There, that's much better.")
             Area.light = "lit"
-            print("area light in lighter on method " + Area.light)
-
         else:
 
             print("Maybe later.")
