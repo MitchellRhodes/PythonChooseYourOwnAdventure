@@ -3,6 +3,7 @@ from Player import Player
 
 def main():
     User.location = "start"
+    items = ["lighter", "knife", "key"]
 
     print("You open your eyes. Your surroundings are blurry.")
     
@@ -10,26 +11,29 @@ def main():
 
     print("You stand up and survey the room.")
 
-#error where if you go back this if statement won't happen again
+
     while User.location == "start" or User.location == "mirror" or User.location == "window" or User.location == "door":
         if User.location == "start":
 
+            User.action_count += 1
             starting_area()
         elif User.location == "mirror":
 
             print("You walk up to the mirror")
-            mirror_area()
+            User.action_count += 1
+            mirror_area(items)
         elif User.location == "window":
 
             print("You walk over to the window")
+            User.action_count += 1
         elif User.location == "door":
 
             print("You walk towards the door.")
+            User.action_count += 1
 
 
-def mirror_area():
-    
-    items = ["lighter", "knife", "key"]
+
+def mirror_area(items):
     pickup_more = "yes"
 
     print("You look into the mirror and see your bloodshot eyes staring back at you. You don't make a pretty picture.")
@@ -45,20 +49,24 @@ def mirror_area():
             print("You check to make sure it has fuel and then pocket the lighter.")
             User.inventory.append("lighter")
             items.remove("lighter")
+            User.action_count += 1
         elif pickup.lower().strip() == "knife":
 
             print("You have picked up the knife. Watch out for those pointy bits!")
             User.inventory.append("knife")
             items.remove("knife")
+            User.action_count += 1
         elif pickup.lower().strip() == "key":
         
             print("You think it's for the door. It probably is, so you decide it is best to bring it.")
             User.inventory.append("key")
             items.remove("key")
+            User.action_count += 1
 
         pickup_more = input("Do you want to keep picking up items? (yes/no)").lower().strip()
 
     print("You finish picking up items and head back out into the room.")
+    User.action_count += 1
     User.location = "start"
     
 
