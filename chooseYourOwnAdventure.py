@@ -8,6 +8,8 @@ if play_game.lower().strip() == "yes":
 
     eyesight = None
     action_count = 0
+    direction = ""
+
 
     print("You open your eyes. Your surroundings are blurry.")
     
@@ -23,6 +25,15 @@ if play_game.lower().strip() == "yes":
             action_count += 1
         else:
             print("Could you repeat that?")
+
+    print("You stand up and survey the room.")
+    print("Behind you is a wall. In front of you is a mirror. To the left is a door. To the right is a window.")
+
+    direction = input("Which way will you head? (back/forward/left/right)")
+
+    if direction.lower().strip() == "back":
+        print("That's a wall...")
+        action_count += 1
              
 
 else:
