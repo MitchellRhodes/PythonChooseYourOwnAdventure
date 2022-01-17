@@ -38,17 +38,74 @@ def main():
 
 def door_area():
 
-
-    if Area.light == "off":
+    if Area.light == "dark":
 
         print("You're now standing in front of the door. It is suspiciously dark over here.")
         lighter_on()
-
+        User.action_count += 1
+        print("area light after lighter on " + Area.light)
     else:
-        print("I can see the door properly now.")
+        print("The door is well lit now.")
+
+
+    if User.eyesight == 1 and Area.light == "lit":
+
+        print("Is that a wire hidden by the door frame?")
+        print("It appears to go through the wall.")
+        print("Something about that doesn't seem right.")
+        wire_cut()
+
+
+    if "key" not in User.inventory:
+
+        print("The door appears to be locked. Maybe there is a key back in the room.")
+        User.location = "start"
+        User.action_count += 1
+    else:
+
+        print("Should I open it with the key?")
+        key_decision = input("(yes/no)")
+
+        if key_decision == "yes":
+
+            open_door()
+            User.action_count += 1
+        else:
+            print("I'll go back into the room till I am ready.")
+
     
     User.location = "start"
 #really dark use lighter, good eyesight needed to see wire that goes to outside door, knife cuts wire, key opens door. No knife you explode when you open the door
+
+def open_door():
+
+    print("area light in open_door" + Area.light)
+
+    if Area.light == "lit" and Area.wire == "cut":
+        
+        print("The door opens with a creak.")
+    
+    else: 
+
+        print("The door creaks ominously as it opens.")
+
+    
+
+
+def wire_cut():
+
+    if "knife" in User.inventory:
+        knife_cut = input("Would you like to sever it with your knife? (yes/no)")
+
+        if knife_cut.lower().strip() == "yes":
+
+            print("I cut the wire and hear a small click on the other side. Good or bad, there's no going back.")
+            Area.wire == "cut"
+            User.action_count += 1
+        else:
+
+            print("Maybe I shouldn't. Who knows what'll happen if I do.")
+
 
 def lighter_on():
 
@@ -59,7 +116,9 @@ def lighter_on():
         if lighter_on.lower().strip() == "yes":
 
             print("There, that's much better.")
-            Area.light == "on"
+            Area.light = "lit"
+            print("area light in lighter on method " + Area.light)
+
         else:
 
             print("Maybe later.")
@@ -72,7 +131,6 @@ def lighter_on():
 def window_area():
 
     if Area.window == "closed":
-        knife_decision = "no"
 
         print("You peer out the window. Your eyes straining to see out of the cloudy glass.")
         print("You look at the latch and see it is broken. Maybe you can pry it open.")
@@ -207,7 +265,7 @@ if play_game.lower().strip() == "yes":
 
     name = input("What is your first name?")
     User = Player(name, None, 0, True, [], "Start")
-    Area = Enviornment("closed", "off", "intact")
+    Area = Enviornment("closed", "dark", "intact", "closed")
 
     main()
              
